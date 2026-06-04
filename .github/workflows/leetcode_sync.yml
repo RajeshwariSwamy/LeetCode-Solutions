@@ -1,0 +1,35 @@
+name: Sync LeetCode to Git and Create PR
+
+on:
+  schedule:
+    # Runs every day at midnight UTC (Adjust as needed)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows you to trigger it manually anytime
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      # 1. Fetch LeetCode solutions into a temporary directory/branch
+      - name: Sync LeetCode Solutions
+        uses: joshcai/leetcode-sync@v1.7.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          destination-folder: problems
+
+      # 2. Open a Pull Request if new problems are detected
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update LeetCode solutions"
+          title: "Code Sync: New LeetCode Problems Solved"
+          body: "Automated PR containing your latest LeetCode submissions."
+          branch: leetcode-updates
+          base: main
