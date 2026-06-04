@@ -16,7 +16,7 @@ jobs:
 
       # 1. Fetch LeetCode solutions into a temporary directory/branch
       - name: Sync LeetCode Solutions
-        uses: joshcai/leetcode-sync@v1.7.0
+        uses: joshcai/leetcode-sync@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
