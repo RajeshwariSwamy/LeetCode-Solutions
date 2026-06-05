@@ -1,14 +1,37 @@
 class Solution(object):
     def twoSum(self, nums, target):
-        
-        num_map = {}
+        output = []
+        x=len(nums)
+        for i in range(0, len(nums)):
+            #print(i)   
+            c=i
+            while c<x-1:
+              #print(i, c)     
+              if (nums[i] + nums[c+1] == target):
+                  #print(nums[i],nums[c+1], x)
+                  output.extend([i, c+1])            
+                  #output.append(i)
+                  #output.append(c+1)
+                  return output
+                  #break
+              c+=1       
+            if len(output) > 0:
+              break
 
-        for i, num in enumerate(nums):
-            complement = target - num            
-            if complement in num_map:
-                return [num_map[complement], i]            
-            num_map[num] = i
-nums = [10, 100, -5, 9, 0, 11, 23, -2]
-target = 100            
-sol = Solution()
-print(sol.twoSum(nums, target)) 
+    
+
+
+
+    
+
+
+
+
+
+
+"""
+:type nums: List[int]
+:type target: int
+:rtype: List[int]
+"""
+        
